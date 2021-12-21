@@ -2,9 +2,9 @@
 
 This packages translates domain names into crypto wallet addresses, using standard TXT records set by the DNS.
 
-WARNING: This package is currently in BETA and not yet production ready.
+> WARNING: This package is currently in BETA and not yet production ready.
 
-TODO
+TODO: Describe update cycle.
 
 ## Motivation
 
@@ -14,22 +14,37 @@ https://ma.ttias.be/proposal-cryptocurrency-addresses-dns/
 
 ## Installation
 
-TODO
+Using npm:
 
-Useing npm: `npm install crypto-dns`
-Using yarn: `yarn add crypto-dns`
+```bash
+npm install crypto-dns
+```
+
+Using yarn:
+
+```bash
+yarn add crypto-dns
+```
 
 ## Example
 
+Lookup single address for a currency with the highest priority:
+
 ```typescript
-import { lookup, lookupMany, lookupOne } from 'crypto-dns';
+import { lookupOne } from 'crypto-dns';
 
-// Receive only one address of a currency with the highest priority
 const lookupSingleAddress = await lookupOne('thirdweb.de', 'ETH');
+// -> string
 // 0xD982065960f77282eDB555b43B175Cf3A7dAC72d
+```
 
-// Receive all addresses of a currency
+You can also lookup all addresses for a currency (sorted by priority):
+
+```typescript
+import { lookupMany } from 'crypto-dns';
+
 const lookupMultipleAddresses = await lookupMany('thirdweb.de', 'ETH');
+// -> array
 //[
 //  {
 //    version: 1,
@@ -50,9 +65,15 @@ const lookupMultipleAddresses = await lookupMany('thirdweb.de', 'ETH');
 //    address: '0xccaa72d80EeB1A2Ac91B6Fdebff995D55ea9368a',
 //  },
 //];
+```
 
-// Receive all addresses of all currencies
+To receive addresses for every available currency you can use the `lookup` method:
+
+```typescript
+import { lookup } from 'crypto-dns';
+
 const lookupResultForAllCurrencies = await lookup('thirdweb.de');
+// -> array
 //[
 //  {
 //    version: 1,
@@ -72,49 +93,56 @@ const lookupResultForAllCurrencies = await lookup('thirdweb.de');
 
 ## Features
 
+- Use your domain as alias for your crypto wallet addresses
+- Available for every crypto currency
+- Works with your main domain and all subdomains
+- Use priority to
+
 ### DNS format
 
-TODO
+```
+crypto:<formatVersion>:<priority> <currency>:<walletAddress>
+```
 
-`crypto:v1:10 eth:XXXXX`  
-`crypto:v1:10 matic:XXXXX`  
+| Keyword       | Description                                                                                                                             |
+| ------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| formatVersion | Version of the format of the DNS string Currently only `1` is available.                                                                |
+| priority      | Specify priority of the entry. The lower, the higher priority.                                                                          |
+| currency      | Symbol of the crypto currency (case-insensitive). Use [CoinMarketCap](https://coinmarketcap.com/de/all/views/all/) to find all symbols. |
+| walletAddress | String with your wallet address. The format depends on the currency.                                                                    |
+
+Examples:
+
+```
+`crypto:v1:10 eth:0xD982065960f77282eDB555b43B175Cf3A7dAC72d`
+`crypto:v1:10 matic:0xD982065960f77282eDB555b43B175Cf3A7dAC72d`
 `crypto:v1:10 btc:XXXX`
+```
 
 ### How to use subdomains
 
-TODO
+Subdomains can be used like root domains. Just use your subdomain when adding it to the DNS instead of the `@` path.
 
 ### Lookup Flow
 
 TODO
 
-#### Add new wallet to DNS
+## Tests
 
-TODO
+You can validate all tests by running:
 
-#### Receive wallet from DNS
+```bash
+yarn test
+```
 
-TODO
+## License
 
-- Check Prerequisites
-  - DNSSEC enabled
-  - Crypto TXT entries available
-- Process and return entries
+This library is licensed under the [**MIT License**](https://github.com/LuckyF/crypto-dns/blob/main/LICENSE.md).
 
-# Tests
+## Bugs & Feature Requests
 
-TODO
+For Bug reports or feature requests, please [create an issue](https://github.com/LuckyF/crypto-dns/issues) in the crypto-dns repository.
 
-# Contributing
+## Support
 
-TODO
-
-# License
-
-TODO
-
-**MIT**
-
-# Support
-
-TODO
+If you would like to support the development of this project, feel free to [contact me via mail](mailto:hey@frischknecht.dev?subject=Support%20Crypto-DNS).
