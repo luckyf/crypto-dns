@@ -1,7 +1,7 @@
 {
   "name": "crypto-dns",
   "displayName": "Crypto DNS",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "This packages translates domain names into crypto wallet addresses, using standard TXT records set by the DNS.",
   "keywords": [
     "dns",
