@@ -1,0 +1,83 @@
+{
+  "name": "crypto-dns",
+  "displayName": "Crypto DNS",
+  "version": "0.1.0",
+  "description": "This packages translates domain names into crypto wallet addresses, using standard TXT records set by the DNS.",
+  "keywords": [
+    "dns",
+    "security",
+    "encryption",
+    "crypto",
+    "bitcoin",
+    "ethereum",
+    "blockchain",
+    "cryptography",
+    "identity",
+    "domain",
+    "dnssec",
+    "wallet"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://git.frischknecht.dev/luckyf/crypto-dns.git"
+  },
+  "bugs": {
+    "url": "https://git.frischknecht.dev/luckyf/crypto-dns/-/issues"
+  },
+  "homepage": "https://git.frischknecht.dev/luckyf/crypto-dns.git",
+  "license": "MIT",
+  "author": {
+    "name": "Lukas Frischknecht",
+    "email": "hey@frischknecht.dev",
+    "url": "https://frischknecht.dev"
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "dev": "tsc-watch --preserveWatchOutput --onSuccess 'node ./dist/index.js'",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "test": "jest --config jest.config.json",
+    "test:watch": "jest --config jest.config.json --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "ci:license": "licensee --errors-only",
+    "ci:license-report": "licensee --ndjson > license-report.json",
+    "ci:sort-packagejson": "sort-package-json",
+    "ci:upgradelatest": "yarn upgrade-interactive --latest",
+    "ci:outdated": "yarn outdated",
+    "ci:outdated-report": "yarn outdated --json > outdated-report.json",
+    "ci:vulnerabilities": "yarn audit",
+    "ci:vulnerabilities-report": "yarn audit --json > vulnerabilities-report.json",
+    "ci:vulnerabilities-fix": "yarn audit --fix",
+    "prepare": "yarn build",
+    "preversion": "yarn lint",
+    "version": "yarn format && git add -A src",
+    "postversion": "git push && git push --tags",
+    "format": "prettier --write \"src/**/*.ts\""
+  },
+  "dependencies": {
+    "dns-over-http-resolver": "^2.0.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.0.3",
+    "@types/node": "^16.11.12",
+    "@typescript-eslint/eslint-plugin": "^5.7.0",
+    "@typescript-eslint/parser": "^5.7.0",
+    "eslint": "^8.4.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-no-loops": "^0.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "jest": "^27.4.5",
+    "licensee": "^8.2.0",
+    "prettier": "^2.5.1",
+    "sort-package-json": "^1.53.1",
+    "ts-jest": "^27.1.1",
+    "ts-node": "^10.4.0",
+    "tsc-watch": "^4.5.0",
+    "typescript": "^4.5.3"
+  }
+}
