@@ -19,12 +19,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://git.frischknecht.dev/luckyf/crypto-dns.git"
+    "url": "https://github.com/LuckyF/crypto-dns.git"
   },
   "bugs": {
-    "url": "https://git.frischknecht.dev/luckyf/crypto-dns/-/issues"
+    "url": "https://github.com/LuckyF/crypto-dns/issues"
   },
-  "homepage": "https://git.frischknecht.dev/luckyf/crypto-dns.git",
+  "homepage": "https://github.com/LuckyF/crypto-dns.git",
   "license": "MIT",
   "author": {
     "name": "Lukas Frischknecht",
