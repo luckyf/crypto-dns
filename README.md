@@ -2,15 +2,15 @@
 
 This packages translates domain names into crypto wallet addresses, using standard TXT records set by the DNS.
 
-> WARNING: This package is currently in BETA and not yet production ready.
-
-TODO: Describe update cycle.
-
 ## Motivation
 
-TODO
+Crypto currency wallet addresses aren't readable or rememberable.
+Just like in the "normal" DNS system, where we translate domain names to IP addresses, a system which translates domain names to wallet addresses would be useful.
 
-https://ma.ttias.be/proposal-cryptocurrency-addresses-dns/
+There are several providers of such translation services like ENS which are using smart contracts for the translation, but using those will result in gas fees, which are currently really high.
+
+Fortunately we already have DNS as a global translation system in place, which we can use. By adding TXT records we are able to associate wallet addresses for one or multiple crypto currencies to our domain or subdomain.
+This package is heavily inspired by [this blog post of Matthias Geniar](https://ma.ttias.be/proposal-cryptocurrency-addresses-dns/).
 
 ## Installation
 
@@ -107,9 +107,15 @@ crypto:<formatVersion>:<priority> <currency>:<walletAddress>
 | Keyword       | Description                                                                                                                             |
 | ------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
 | formatVersion | Version of the format of the DNS string Currently only `1` is available.                                                                |
-| priority      | Specify priority of the entry. The lower, the higher priority.                                                                          |
+| priority      | Specify priority of the entry (3 digits). The lower, the higher priority.                                                               |
 | currency      | Symbol of the crypto currency (case-insensitive). Use [CoinMarketCap](https://coinmarketcap.com/de/all/views/all/) to find all symbols. |
 | walletAddress | String with your wallet address. The format depends on the currency.                                                                    |
+
+Regex:
+
+```regex
+/^"+crypto:(?<formatVersion>\d):(?<priority>\d{1,3})\s(?<currency>\w+):(?<walletAddress>.*)"+/
+```
 
 Examples:
 
@@ -122,10 +128,6 @@ Examples:
 ### How to use subdomains
 
 Subdomains can be used like root domains. Just use your subdomain when adding it to the DNS instead of the `@` path.
-
-### Lookup Flow
-
-TODO
 
 ## Tests
 
@@ -143,6 +145,12 @@ This library is licensed under the [**MIT License**](https://github.com/LuckyF/c
 
 For Bug reports or feature requests, please [create an issue](https://github.com/LuckyF/crypto-dns/issues) in the crypto-dns repository.
 
-## Support
+## Support & Funding
 
-If you would like to support the development of this project, feel free to [contact me via mail](mailto:hey@frischknecht.dev?subject=Support%20Crypto-DNS).
+If you would like to support or fund the development of this project, feel free to [contact me via mail](mailto:hey@frischknecht.dev?subject=Support%20Crypto-DNS).
+
+## TODOs
+
+- Docs: Describe update cycle (CICD)
+- Docs: Describe lookup flow
+- Feature: Make DoH Lookup provider configurable
