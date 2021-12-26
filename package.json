@@ -1,7 +1,7 @@
 {
   "name": "crypto-dns",
   "displayName": "Crypto DNS",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "This packages translates domain names into crypto wallet addresses, using standard TXT records set by the DNS.",
   "keywords": [
     "dns",
@@ -57,7 +57,7 @@
     "test:coverage": "jest --coverage",
     "test:watch": "jest --config jest.config.json --watch",
     "preversion": "npm run lint",
-    "version": "npm run format && git add -A src",
+    "version": "npm run ci:format && git add -A src",
     "postversion": "git push && git push --tags"
   },
   "dependencies": {
