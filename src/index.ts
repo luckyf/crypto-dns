@@ -1,7 +1,7 @@
-import DnsOverHttpResolver from 'dns-over-http-resolver';
-import { CryptoDNSConfigurationI, CryptoDNSEntryI } from './types/types';
+import axios from 'axios';
+import { CryptoDNSConfigurationI, CryptoDNSEntryI, DoHEntry } from './types/types';
 
-const defaultConfig = { nameserverURL: 'https://1.1.1.1/dns-query' };
+const defaultConfig = { nameserverIP: '1.1.1.1' };
 
 export const lookup = async (
   domain: string,
@@ -9,43 +9,37 @@ export const lookup = async (
 ): Promise<CryptoDNSEntryI[]> => {
   const result: CryptoDNSEntryI[] = [];
 
-  const dohResolver = new DnsOverHttpResolver({ maxCache: 0 });
-  dohResolver.setServers([config.nameserverURL]);
+  const dnsResponse = await axios.get(`https://${config.nameserverIP}/dns-query`, {
+    headers: { accept: 'application/dns-json' },
+    params: { name: domain, type: 'TXT', do: true, cd: false },
+  });
 
-  const dnsResponse = dohResolver.resolveTxt(domain);
-  console.log(dnsResponse);
+  if (dnsResponse.status !== 200) {
+    throw new Error('Failed to fetch entries from DNS server');
+  }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  //const dnsResponse: any = await dot.lookup(domain, { rrtype: 'TXT', json: false, decode: false, dnssec: true });
+  try {
+    dnsResponse.data.Answer.forEach((entry: DoHEntry) => {
+      if (entry.type !== 16) {
+        return;
+      }
+      const dnsEntry = entry.data.match(
+        /^"+crypto:(?<formatVersion>\d):(?<priority>\d{1,3})\s(?<currency>\w+):(?<walletAddress>.*)"+/,
+      );
+      if (!dnsEntry) {
+        return;
+      }
 
-  //if (dnsResponse.rcode !== 'NOERROR') {
-  //  // TODO: Handle error
-  //  return [];
-  //}
-  //
-  //// TODO: Validate DNSSEC
-  //// eslint-disable-next-line no-constant-condition
-  //if (false) {
-  //  return [];
-  //}
-  //
-  //dnsResponse.answers.forEach((entry: any) => {
-  //  if (entry.type !== 'TXT') {
-  //    return;
-  //  }
-  //  const [protocolString, walletString]: string[] = entry.data.toString().split(' ');
-  //  const [, protocolVersion, priority] = protocolString.split(':');
-  //  const [, address] = walletString.split(':');
-  //  let [currency] = walletString.split(':');
-  //  currency = currency.toUpperCase();
-  //
-  //  result.push({
-  //    version: Number(protocolVersion),
-  //    priority: Number(priority),
-  //    currency: currency,
-  //    address: address,
-  //  });
-  //});
+      result.push({
+        version: Number(dnsEntry.groups?.formatVersion),
+        priority: Number(dnsEntry.groups?.priority),
+        currency: dnsEntry.groups?.currency.toUpperCase() || '',
+        address: dnsEntry.groups?.walletAddress || '',
+      });
+    });
+  } catch (error) {
+    throw new Error(`Failed to parse DNS entry: ${error}`);
+  }
 
   return result;
 };
@@ -94,3 +88,10 @@ export const lookupOne = async (
   // If multiple addresses are set, select one random address
   return lookupResult[Math.floor(Math.random() * lookupResult.length)].address;
 };
+
+//const main = async () => {
+//  console.log(await lookup('thirdweb.de'));
+//  console.log(await lookupMany('thirdweb.de', 'eth'));
+//  console.log(await lookupOne('thirdweb.de', 'eth'));
+//};
+//main();
