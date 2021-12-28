@@ -10,7 +10,7 @@ Just like in the "normal" DNS system, where we translate domain names to IP addr
 There are several providers of such translation services like ENS which are using smart contracts for the translation, but using those will result in gas fees, which are currently really high.
 
 Fortunately we already have DNS as a global translation system in place, which we can use. By adding TXT records we are able to associate wallet addresses for one or multiple crypto currencies to our domain or subdomain.
-This package is heavily inspired by [this blog post of Matthias Geniar](https://ma.ttias.be/proposal-cryptocurrency-addresses-dns/).
+This package is heavily inspired by [this blog post of Mattias Geniar](https://ma.ttias.be/proposal-cryptocurrency-addresses-dns/).
 
 ## Installation
 
