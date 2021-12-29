@@ -1,45 +1,51 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { CryptoDNSConfigurationI, CryptoDNSEntryI, DoHEntry } from './types/types';
 
-const defaultConfig = { nameserverIP: '1.1.1.1' };
+const defaultConfig: CryptoDNSConfigurationI = { nameserverIP: '1.1.1.1', timeout: 2000 };
 
 export const lookup = async (
   domain: string,
   config: CryptoDNSConfigurationI = defaultConfig,
 ): Promise<CryptoDNSEntryI[]> => {
   const result: CryptoDNSEntryI[] = [];
-
-  const dnsResponse = await axios.get(`https://${config.nameserverIP}/dns-query`, {
-    headers: { accept: 'application/dns-json' },
-    params: { name: domain, type: 'TXT', do: true, cd: false },
-  });
-
-  if (dnsResponse.status !== 200) {
-    throw new Error('Failed to fetch entries from DNS server');
-  }
+  let dnsResponse: AxiosResponse;
 
   try {
-    dnsResponse.data.Answer.forEach((entry: DoHEntry) => {
-      if (entry.type !== 16) {
-        return;
-      }
-      const dnsEntry = entry.data.match(
-        /^"+crypto:(?<formatVersion>\d):(?<priority>\d{1,3})\s(?<currency>\w+):(?<walletAddress>.*)"+/,
-      );
-      if (!dnsEntry) {
-        return;
-      }
-
-      result.push({
-        version: Number(dnsEntry.groups?.formatVersion),
-        priority: Number(dnsEntry.groups?.priority),
-        currency: dnsEntry.groups?.currency.toUpperCase() || '',
-        address: dnsEntry.groups?.walletAddress || '',
-      });
+    dnsResponse = await axios.get(`https://${config.nameserverIP}/dns-query`, {
+      headers: { accept: 'application/dns-json' },
+      params: { name: domain, type: 'TXT', do: true, cd: false },
+      timeout: config.timeout,
     });
   } catch (error) {
-    throw new Error(`Failed to parse DNS entry: ${error}`);
+    throw new Error(`Network error :${error.message}`);
   }
+
+  if (dnsResponse.data.Status === undefined || dnsResponse.data.Answer === undefined) {
+    throw new Error('Unplausible DoH response');
+  } else if (dnsResponse.data.Status != 0) {
+    throw new Error('Failed DoH response');
+  } else if (dnsResponse.data.AD !== true || dnsResponse.data.CD !== false) {
+    throw new Error('Failed DNSSEC validation');
+  }
+
+  dnsResponse.data.Answer.forEach((entry: DoHEntry) => {
+    if (entry.type !== 16) {
+      return;
+    }
+    const dnsEntry = entry.data.match(
+      /^"+crypto:(?<formatVersion>\d):(?<priority>\d{1,3})\s(?<currency>\w+):(?<walletAddress>.*)"+/,
+    );
+    if (!dnsEntry) {
+      return;
+    }
+
+    result.push({
+      version: Number(dnsEntry.groups?.formatVersion),
+      priority: Number(dnsEntry.groups?.priority),
+      currency: dnsEntry.groups?.currency.toUpperCase() || '',
+      address: dnsEntry.groups?.walletAddress || '',
+    });
+  });
 
   return result;
 };
