@@ -1,5 +1,5 @@
 include:
-  - file: '/.ci/dependabot.ci.yml'
+  - '/.ci/dependabot.ci.yml'
 
 stages:
   - dependencies
