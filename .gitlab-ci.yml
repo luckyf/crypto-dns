@@ -1,10 +1,9 @@
+include:
+  - file: '.ci/dependabot.ci.yml'
+
 stages:
-  - install
+  - dependencies
   - build
   - test
   - deploy
-
-test:
-  stage: test
-  script:
-    - 'echo "Hello world"'
+  - dast
