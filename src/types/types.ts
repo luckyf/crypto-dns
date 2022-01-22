@@ -5,7 +5,12 @@ export interface DoHEntry {
   data: string;
 }
 export interface CryptoDNSConfigurationI {
-  nameserverIP: string;
+  nameserver?: string;
+  timeout?: number;
+}
+
+export interface CryptoDNSConfigurationDefaultI {
+  nameserver: string;
   timeout: number;
 }
 

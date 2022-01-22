@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { lookupOne } from '../index';
 
-jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 beforeEach(() => {

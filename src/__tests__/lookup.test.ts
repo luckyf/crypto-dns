@@ -1,10 +1,9 @@
 import axios from 'axios';
 import { lookup } from '../index';
 
-jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
-describe('Test DNS lookup', () => {
+describe('Test mocked DNS lookup', () => {
   test('Network outage (axios error)', async () => {
     mockedAxios.get.mockImplementationOnce(() =>
       Promise.reject({

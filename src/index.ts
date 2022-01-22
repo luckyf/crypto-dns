@@ -1,26 +1,30 @@
 import axios, { AxiosResponse } from 'axios';
-import { CryptoDNSConfigurationI, CryptoDNSEntryI, DoHEntry } from './types/types';
+import { CryptoDNSConfigurationDefaultI, CryptoDNSConfigurationI, CryptoDNSEntryI, DoHEntry } from './types/types';
 
-const defaultConfig: CryptoDNSConfigurationI = { nameserverIP: '1.1.1.1', timeout: 2000 };
+const defaultConfig: CryptoDNSConfigurationDefaultI = { nameserver: 'https://1.1.1.1/dns-query', timeout: 2000 }; // Google DNS: https://8.8.8.8/resolve
 
 export const lookup = async (
   domain: string,
   config: CryptoDNSConfigurationI = defaultConfig,
 ): Promise<CryptoDNSEntryI[]> => {
+  const mergedConfig = { ...defaultConfig, ...config };
+
+  console.log(axios);
+
   const result: CryptoDNSEntryI[] = [];
   let dnsResponse: AxiosResponse;
 
   try {
-    dnsResponse = await axios.get(`https://${config.nameserverIP}/dns-query`, {
+    dnsResponse = await axios.get(mergedConfig.nameserver, {
       headers: { accept: 'application/dns-json' },
       params: { name: domain, type: 'TXT', do: true, cd: false },
-      timeout: config.timeout,
+      timeout: mergedConfig.timeout,
     });
   } catch (error) {
     throw new Error(`Network error :${error.message}`);
   }
 
-  if (dnsResponse.data.Status === undefined || dnsResponse.data.Answer === undefined) {
+  if (dnsResponse?.data?.Status === undefined || dnsResponse?.data?.Answer === undefined) {
     throw new Error('Unplausible DoH response');
   } else if (dnsResponse.data.Status != 0) {
     throw new Error('Failed DoH response');

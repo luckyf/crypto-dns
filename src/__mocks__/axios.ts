@@ -1,8 +1,8 @@
 export default {
   get: jest.fn(() =>
     Promise.resolve({
-      data: undefined,
-      status: 404,
+      data: '',
+      status: 200,
     }),
   ),
 };
