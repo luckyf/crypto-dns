@@ -61,7 +61,7 @@
     "postversion": "git push && git push --tags"
   },
   "dependencies": {
-    "axios": "^0.24.0"
+    "axios": "^0.25.0"
   },
   "devDependencies": {
     "@types/jest": "^27.0.3",
