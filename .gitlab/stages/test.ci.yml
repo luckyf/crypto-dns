@@ -1,0 +1,65 @@
+########################################
+# Stages
+#########################################
+stages:
+  - test
+
+########################################
+# Configuration
+########################################
+#variables:
+#  JOB_LINT_ENABLED: 'false'
+#  JOB_TEST_ENABLED: 'false'
+
+########################################
+# Jobs
+########################################
+lint:
+  stage: test
+  image: '$NODE_BUILD_IMAGE'
+  cache:
+    key:
+      files:
+        - yarn.lock
+      prefix: DEV
+    paths:
+      - node_modules
+    policy: pull
+  rules:
+    - if: '$JOB_LINT_ENABLED != "true"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE != "push" && $CI_PIPELINE_SOURCE != "web"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_MESSAGE =~ /chore: Update version/'
+      when: never
+    - when: on_success
+  script:
+    - yarn lint
+
+test:
+  stage: test
+  image: '$NODE_BUILD_IMAGE'
+  cache:
+    key:
+      files:
+        - yarn.lock
+      prefix: DEV
+    paths:
+      - node_modules
+    policy: pull
+  artifacts:
+    paths:
+      - 'coverage'
+    expire_in: 30 days
+    when: on_success
+  rules:
+    - if: '$JOB_TEST_ENABLED != "true"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE != "push" && $CI_PIPELINE_SOURCE != "web"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_MESSAGE =~ /chore: Update version/'
+      when: never
+    - when: on_success
+  script:
+    - yarn test:coverage || true
+    - yarn test

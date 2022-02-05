@@ -1,0 +1,106 @@
+#########################################
+# Stages
+#########################################
+stages:
+  - audit
+
+########################################
+# Configuration
+########################################
+#variables:
+#  JOB_LICENSES_ENABLED: 'false'
+#  JOB_VULNERABILITIES_ENABLED: 'false'
+#  JOB_OUTDATED_ENABLED: 'false'
+
+########################################
+# Jobs
+########################################
+licenses:
+  stage: audit
+  image: '$CICD_TEMPLATE_IMAGE'
+  cache:
+    key:
+      files:
+        - yarn.lock
+      prefix: DEV
+    paths:
+      - node_modules
+    policy: pull
+  artifacts:
+    paths:
+      - 'license-report.json'
+    expire_in: 30 days
+    when: on_success
+  rules:
+    - if: '$JOB_LICENSES_ENABLED != "true"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE != "push" && $CI_PIPELINE_SOURCE != "web"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_MESSAGE =~ /chore: Update version/'
+      when: never
+    - when: on_success
+  extends:
+    - .init-npm
+  script:
+    - yarn ci:license-report || true
+    - yarn ci:license
+
+vulnerabilities:
+  stage: audit
+  image: '$CICD_TEMPLATE_IMAGE'
+  cache:
+    key:
+      files:
+        - yarn.lock
+      prefix: DEV
+    paths:
+      - node_modules
+    policy: pull
+  artifacts:
+    paths:
+      - 'vulnerabilities-report.json'
+    expire_in: 30 days
+    when: on_success
+  rules:
+    - if: '$JOB_VULNERABILITIES_ENABLED != "true"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE != "push" && $CI_PIPELINE_SOURCE != "web"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_MESSAGE =~ /chore: Update version/'
+      when: never
+    - when: on_success
+  extends:
+    - .init-npm
+  script:
+    - yarn ci:vulnerabilities-report || true
+    - yarn ci:vulnerabilities
+
+outdated:
+  stage: audit
+  image: '$CICD_TEMPLATE_IMAGE'
+  cache:
+    key:
+      files:
+        - yarn.lock
+      prefix: DEV
+    paths:
+      - node_modules
+    policy: pull
+  artifacts:
+    paths:
+      - 'outdated-report.json'
+    expire_in: 30 days
+    when: on_success
+  rules:
+    - if: '$JOB_OUTDATED_ENABLED != "true"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE != "push" && $CI_PIPELINE_SOURCE != "web"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_MESSAGE =~ /chore: Update version/'
+      when: never
+    - when: on_success
+  extends:
+    - .init-npm
+  script:
+    - yarn ci:outdated-report || true
+    - yarn ci:outdated

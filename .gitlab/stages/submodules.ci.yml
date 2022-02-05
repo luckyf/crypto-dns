@@ -1,0 +1,54 @@
+#########################################
+# Stages
+#########################################
+stages:
+  - submodules
+
+########################################
+# Configuration
+########################################
+#variables:
+#  JOB_UPDATESUBMODULES_ENABLED: 'false'
+#  JOB_TRIGGERUPDATESUBMODULES_ENABLED: 'false'
+
+########################################
+# Jobs
+########################################
+trigger-update-submodule:
+  stage: submodules
+  rules:
+    - if: '$JOB_TRIGGERUPDATESUBMODULES_ENABLED != "true"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE != "pipeline" && $CI_PIPELINE_SOURCE != "push" && $CI_PIPELINE_SOURCE != "web"'
+      when: never
+    - when: always
+  trigger:
+    project: templates/cicd/main
+    branch: main
+    strategy: depend
+
+update-submodules:
+  stage: submodules
+  rules:
+    - if: '$JOB_UPDATESUBMODULES_ENABLED != "true"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE != "pipeline" && $CI_PIPELINE_SOURCE != "web"'
+      when: never
+    - when: always
+      variables:
+        GIT_STRATEGY: clone
+        GIT_CHECKOUT: 'true'
+        GIT_SUBMODULE_STRATEGY: recursive
+  image:
+    name: '$NODE_BUILD_IMAGE_GIT'
+  extends:
+    - .init-git
+  script:
+    ## Update submodules
+    - 'git pull --all --recurse-submodules'
+    - 'git submodule foreach "git pull origin dev"'
+    ## Print changes
+    - 'git --no-pager diff .'
+    ## Commit update to repository
+    - 'git commit -am "chore: Update submodules" || echo "No changes to commit"'
+    - 'git push'

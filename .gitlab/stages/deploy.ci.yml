@@ -1,0 +1,28 @@
+########################################
+# Stages
+#########################################
+stages:
+  - deploy
+
+########################################
+# Configuration
+########################################
+#variables:
+#  JOB_TRIGGERDEPLOY_ENABLED: 'false'
+
+########################################
+# Jobs
+########################################
+trigger-deploy:
+  stage: deploy
+  rules:
+    - if: '$JOB_TRIGGERDEPLOY_ENABLED != "true"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE != "push" && $CI_PIPELINE_SOURCE != "web"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_MESSAGE =~ /chore: Update version/'
+      when: always
+  trigger:
+    project: 'templates/cicd/k8s'
+    branch: 'main'
+    strategy: depend

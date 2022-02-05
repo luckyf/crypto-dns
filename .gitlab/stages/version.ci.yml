@@ -1,0 +1,41 @@
+########################################
+# Stages
+#########################################
+stages:
+  - version
+
+########################################
+# Configuration
+########################################
+#variables:
+#  JOB_UPDATEVERSION_ENABLED: 'false'
+
+########################################
+# Jobs
+########################################
+update-version:
+  stage: version
+  image:
+    name: '$NODE_BUILD_IMAGE_GIT'
+  rules:
+    - if: '$JOB_UPDATEVERSION_ENABLED != "true"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE != "push" && $CI_PIPELINE_SOURCE != "web"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_MESSAGE =~ /chore: Update version/'
+      when: never
+    - when: on_success
+      variables:
+        GIT_STRATEGY: clone
+        GIT_CHECKOUT: 'false'
+  extends:
+    - .init-git
+  script:
+    ## Update VERSION file
+    - 'echo $CI_COMMIT_SHORT_SHA > VERSION'
+    ## Verify that only VERSION file has been modified
+    - '! git --no-pager diff --exit-code VERSION'
+    - '[[ `git status | grep "modified:" | wc -l` -eq 1 ]]'
+    ## Commit update to repository
+    - 'git commit -am "chore: Update version" || echo "No changes to commit"'
+    - 'git push'

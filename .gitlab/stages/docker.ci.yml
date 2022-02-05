@@ -1,0 +1,54 @@
+#########################################
+# Stages
+#########################################
+stages:
+  - docker
+
+########################################
+# Configuration
+########################################
+#variables:
+#  JOB_DOCKERIZE_ENABLED: 'false'
+
+########################################
+# Jobs
+########################################
+dockerize:
+  stage: docker
+  image:
+    name: '$KANIKO_BUILD_IMAGE'
+    entrypoint: ['']
+  cache:
+    key:
+      files:
+        - yarn.lock
+      prefix: PROD
+    paths:
+      - node_modules
+    policy: pull
+  rules:
+    - if: '$JOB_DOCKERIZE_ENABLED != "true"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE != "push" && $CI_PIPELINE_SOURCE != "web"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_MESSAGE =~ /chore: Update version/'
+      when: never
+    - when: on_success
+  dependencies:
+    - build
+  extends:
+    - .init-kaniko
+  script:
+    - >
+      /kaniko/executor
+      --context $CI_PROJECT_DIR
+      --dockerfile $CI_PROJECT_DIR/Dockerfile
+      --target prod
+      --destination $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+      --destination $CI_REGISTRY_IMAGE:latest
+    # --build-arg "http_proxy=${HTTP_PROXY}"
+    # --build-arg "HTTP_PROXY=${HTTP_PROXY}"
+    # --build-arg "https_proxy=${HTTPS_PROXY}"
+    # --build-arg "HTTPS_PROXY=${HTTPS_PROXY}"
+    # --build-arg "no_proxy=${NO_PROXY}"
+    # --build-arg "NO_PROXY=${NO_PROXY}"

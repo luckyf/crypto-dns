@@ -1,0 +1,31 @@
+########################################
+# Stages
+#########################################
+stages:
+  - release
+
+########################################
+# Configuration
+########################################
+#variables:
+#  JOB_RELEASE_ENABLED: 'false'
+
+########################################
+# Jobs
+########################################
+release-package:
+  stage: release
+  image: '$NODE_BUILD_IMAGE'
+  rules:
+    - if: '$JOB_RELEASE_ENABLED != "true"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE != "push" && $CI_PIPELINE_SOURCE != "web"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_MESSAGE =~ /chore: Update version/'
+      when: never
+    - when: on_success
+  extends:
+    - .init-git
+    - .init-npm
+  script:
+    - yarn ci:publish

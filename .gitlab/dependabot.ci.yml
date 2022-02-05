@@ -12,7 +12,6 @@
 #
 # * Set in the schedule required variables
 #
-#     PROJECT_PATH = group/repository
 #     PACKAGE_MANAGER_SET = bundler,composer,npm
 #     DIRECTORY = /
 #
@@ -21,6 +20,7 @@
 
 variables:
   DEPENDABOT_IMAGE: docker.io/andrcuns/dependabot-gitlab:0.12.0
+  DIRECTORY: '/'
 
 .dependabot-gitlab:
   image:
@@ -34,109 +34,109 @@ variables:
     SETTINGS__STANDALONE: 'true'
   script:
     - cd /home/dependabot/app
-    - bundle exec rake "dependabot:update[$PROJECT_PATH,$PACKAGE_MANAGER,$DIRECTORY]"
+    - bundle exec rake "dependabot:update[$CI_PROJECT_PATH,$PACKAGE_MANAGER,$DIRECTORY]"
 
 bundler:
   extends: .dependabot-gitlab
   rules:
     - if: $DEPENDENCY_UPDATES_DISABLED
       when: never
-    - if: '$CI_PIPELINE_SOURCE == "schedule" && $PACKAGE_MANAGER_SET =~ /\bbundler\b/'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SCHEDULE_TYPE == "DEPENDABOT" && $PACKAGE_MANAGER_SET =~ /\bbundler\b/'
 
 pip:
   extends: .dependabot-gitlab
   rules:
     - if: $DEPENDENCY_UPDATES_DISABLED
       when: never
-    - if: '$CI_PIPELINE_SOURCE == "schedule" && $PACKAGE_MANAGER_SET =~ /\bpip\b/'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SCHEDULE_TYPE == "DEPENDABOT" && $PACKAGE_MANAGER_SET =~ /\bpip\b/'
 
 npm:
   extends: .dependabot-gitlab
   rules:
     - if: $DEPENDENCY_UPDATES_DISABLED
       when: never
-    - if: '$CI_PIPELINE_SOURCE == "schedule" && $PACKAGE_MANAGER_SET =~ /(\bnpm|yarn\b)/'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SCHEDULE_TYPE == "DEPENDABOT" && $PACKAGE_MANAGER_SET =~ /(\bnpm|yarn\b)/'
 
 maven:
   extends: .dependabot-gitlab
   rules:
     - if: $DEPENDENCY_UPDATES_DISABLED
       when: never
-    - if: '$CI_PIPELINE_SOURCE == "schedule" && $PACKAGE_MANAGER_SET =~ /\bmaven\b/'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SCHEDULE_TYPE == "DEPENDABOT" && $PACKAGE_MANAGER_SET =~ /\bmaven\b/'
 
 gradle:
   extends: .dependabot-gitlab
   rules:
     - if: $DEPENDENCY_UPDATES_DISABLED
       when: never
-    - if: '$CI_PIPELINE_SOURCE == "schedule" && $PACKAGE_MANAGER_SET =~ /\bgradle\b/'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SCHEDULE_TYPE == "DEPENDABOT" && $PACKAGE_MANAGER_SET =~ /\bgradle\b/'
 
 cargo:
   extends: .dependabot-gitlab
   rules:
     - if: $DEPENDENCY_UPDATES_DISABLED
       when: never
-    - if: '$CI_PIPELINE_SOURCE == "schedule" && $PACKAGE_MANAGER_SET =~ /\bcargo\b/'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SCHEDULE_TYPE == "DEPENDABOT" && $PACKAGE_MANAGER_SET =~ /\bcargo\b/'
 
 mix:
   extends: .dependabot-gitlab
   rules:
     - if: $DEPENDENCY_UPDATES_DISABLED
       when: never
-    - if: '$CI_PIPELINE_SOURCE == "schedule" && $PACKAGE_MANAGER_SET =~ /\bmix\b/'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SCHEDULE_TYPE == "DEPENDABOT" && $PACKAGE_MANAGER_SET =~ /\bmix\b/'
 
 composer:
   extends: .dependabot-gitlab
   rules:
     - if: $DEPENDENCY_UPDATES_DISABLED
       when: never
-    - if: '$CI_PIPELINE_SOURCE == "schedule" && $PACKAGE_MANAGER_SET =~ /\bcomposer\b/'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SCHEDULE_TYPE == "DEPENDABOT" && $PACKAGE_MANAGER_SET =~ /\bcomposer\b/'
 
 nuget:
   extends: .dependabot-gitlab
   rules:
     - if: $DEPENDENCY_UPDATES_DISABLED
       when: never
-    - if: '$CI_PIPELINE_SOURCE == "schedule" && $PACKAGE_MANAGER_SET =~ /\bnuget\b/'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SCHEDULE_TYPE == "DEPENDABOT" && $PACKAGE_MANAGER_SET =~ /\bnuget\b/'
 
 dep:
   extends: .dependabot-gitlab
   rules:
     - if: $DEPENDENCY_UPDATES_DISABLED
       when: never
-    - if: '$CI_PIPELINE_SOURCE == "schedule" && $PACKAGE_MANAGER_SET =~ /\bdep\b/'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SCHEDULE_TYPE == "DEPENDABOT" && $PACKAGE_MANAGER_SET =~ /\bdep\b/'
 
 gomod:
   extends: .dependabot-gitlab
   rules:
     - if: $DEPENDENCY_UPDATES_DISABLED
       when: never
-    - if: '$CI_PIPELINE_SOURCE == "schedule" && $PACKAGE_MANAGER_SET =~ /\bgomod\b/'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SCHEDULE_TYPE == "DEPENDABOT" && $PACKAGE_MANAGER_SET =~ /\bgomod\b/'
 
 elm:
   extends: .dependabot-gitlab
   rules:
     - if: $DEPENDENCY_UPDATES_DISABLED
       when: never
-    - if: '$CI_PIPELINE_SOURCE == "schedule" && $PACKAGE_MANAGER_SET =~ /\belm\b/'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SCHEDULE_TYPE == "DEPENDABOT" && $PACKAGE_MANAGER_SET =~ /\belm\b/'
 
 gitsubmodule:
   extends: .dependabot-gitlab
   rules:
     - if: $DEPENDENCY_UPDATES_DISABLED
       when: never
-    - if: '$CI_PIPELINE_SOURCE == "schedule" && $PACKAGE_MANAGER_SET =~ /\bgitsubmodule\b/'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SCHEDULE_TYPE == "DEPENDABOT" && $PACKAGE_MANAGER_SET =~ /\bgitsubmodule\b/'
 
 docker:
   extends: .dependabot-gitlab
   rules:
     - if: $DEPENDENCY_UPDATES_DISABLED
       when: never
-    - if: '$CI_PIPELINE_SOURCE == "schedule" && $PACKAGE_MANAGER_SET =~ /\bdocker\b/'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SCHEDULE_TYPE == "DEPENDABOT" && $PACKAGE_MANAGER_SET =~ /\bdocker\b/'
 
 terraform:
   extends: .dependabot-gitlab
   rules:
     - if: $DEPENDENCY_UPDATES_DISABLED
       when: never
-    - if: '$CI_PIPELINE_SOURCE == "schedule" && $PACKAGE_MANAGER_SET =~ /\bterraform\b/'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SCHEDULE_TYPE == "DEPENDABOT" && $PACKAGE_MANAGER_SET =~ /\bterraform\b/'

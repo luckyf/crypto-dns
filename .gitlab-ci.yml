@@ -1,9 +1,2 @@
 include:
-  - '/.gitlab/dependabot.ci.yml'
-
-stages:
-  - dependencies
-  - build
-  - test
-  - deploy
-  - dast
+  - '/.gitlab/type/module.ci.yml'

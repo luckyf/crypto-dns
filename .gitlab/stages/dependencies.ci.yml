@@ -1,0 +1,67 @@
+########################################
+# Stages
+#########################################
+stages:
+  - dependencies
+
+########################################
+# Configuration
+########################################
+#variables:
+#  JOB_DEPENDENCIES_PROD_ENABLED: 'false'
+#  JOB_DEPENDENCIES_DEV_ENABLED: 'false'
+
+########################################
+# Jobs
+########################################
+dependencies-prod:
+  stage: dependencies
+  image: '$NODE_BUILD_IMAGE'
+  cache:
+    key:
+      files:
+        - yarn.lock
+      prefix: PROD
+    paths:
+      - node_modules
+    policy: pull-push
+  rules:
+    - if: '$JOB_DEPENDENCIES_PROD_ENABLED != "true"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE != "push" && $CI_PIPELINE_SOURCE != "web"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_MESSAGE =~ /chore: Update version/'
+      when: never
+    - changes:
+        - yarn.lock
+      when: always
+  extends:
+    - .init-npm
+  script:
+    - yarn ci:install-prod
+
+dependencies-dev:
+  stage: dependencies
+  image: '$NODE_BUILD_IMAGE'
+  cache:
+    key:
+      files:
+        - yarn.lock
+      prefix: DEV
+    paths:
+      - node_modules
+    policy: pull-push
+  rules:
+    - if: '$JOB_DEPENDENCIES_DEV_ENABLED != "true"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE != "push" && $CI_PIPELINE_SOURCE != "web"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_MESSAGE =~ /chore: Update version/'
+      when: never
+    - changes:
+        - yarn.lock
+      when: always
+  extends:
+    - .init-npm
+  script:
+    - yarn ci:install-dev
