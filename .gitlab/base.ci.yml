@@ -43,41 +43,41 @@ variables:
 ########################################
 # Pre configurations
 ########################################
-#.init-git:
-#  before_script:
-#    ## Configure git
-#    - 'git config --global user.name "Bot"'
-#    - 'git config --global user.email "noreply@frischknecht.dev"'
-#    #- 'git config --global http.sslCAInfo "${CUSTOM_ROOT_CA}"'
-#    - 'git config --global push.default matching'
-#    - 'git config --global pull.ff only'
-#    - 'git remote set-url origin https://${GIT_USER}:${GIT_PASSWORD}@${CI_REPOSITORY_URL#*@}'
-#    ## Checkout and update git project
-#    #- 'git checkout ${CI_COMMIT_SHORT_SHA}'
-#    - 'git checkout ${CI_COMMIT_BRANCH}'
-#    - 'git reset --hard HEAD'
-#    #- 'git pull'
-#.init-npm:
-#  before_script:
-#    #- export ENV NODE_EXTRA_CA_CERTS=$CUSTOM_ROOT_CA
-#    - cp $NPM_CONFIG ./.npmrc
-#.init-kaniko:
-#  before_script:
-#    - rm .dockerignore
-#    #- cp $CUSTOM_ROOT_CA /kaniko/ssl/certs/custom_root_ca.crt
-#    - mkdir -p /kaniko/.docker
-#    - |-
-#      KANIKOPROXYBUILDARGS=""
-#      KANIKOCFG="{ \"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}"
-#      if [ "x${http_proxy}" != "x" -o "x${https_proxy}" != "x" ]; then
-#        KANIKOCFG="${KANIKOCFG}, \"proxies\": { \"default\": { \"httpProxy\": \"${http_proxy}\", \"httpsProxy\": \"${https_proxy}\", \"noProxy\": \"${no_proxy}\"}}"
-#        KANIKOPROXYBUILDARGS="--build-arg http_proxy=${http_proxy} --build-arg https_proxy=${https_proxy} --build-arg no_proxy=${no_proxy}"
-#      fi
-#      KANIKOCFG="${KANIKOCFG} }"
-#      echo "${KANIKOCFG}" > /kaniko/.docker/config.json
-#.init-kubectl:
-#  before_script:
-#    - mkdir -p /root/.kube
-#    - cp ${KUBE_CONFIG} /root/.kube/config
-#    - chmod o-r /root/.kube/config
-#    - chmod g-r /root/.kube/config
+.init-git:
+  before_script:
+    ## Configure git
+    - 'git config --global user.name "Bot"'
+    - 'git config --global user.email "noreply@frischknecht.dev"'
+    #- 'git config --global http.sslCAInfo "${CUSTOM_ROOT_CA}"'
+    - 'git config --global push.default matching'
+    - 'git config --global pull.ff only'
+    - 'git remote set-url origin https://${GIT_USER}:${GIT_PASSWORD}@${CI_REPOSITORY_URL#*@}'
+    ## Checkout and update git project
+    #- 'git checkout ${CI_COMMIT_SHORT_SHA}'
+    - 'git checkout ${CI_COMMIT_BRANCH}'
+    - 'git reset --hard HEAD'
+    #- 'git pull'
+.init-npm:
+  before_script:
+    #- export ENV NODE_EXTRA_CA_CERTS=$CUSTOM_ROOT_CA
+    - cp $NPM_CONFIG ./.npmrc
+.init-kaniko:
+  before_script:
+    - rm .dockerignore
+    #- cp $CUSTOM_ROOT_CA /kaniko/ssl/certs/custom_root_ca.crt
+    - mkdir -p /kaniko/.docker
+    - |-
+      KANIKOPROXYBUILDARGS=""
+      KANIKOCFG="{ \"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}"
+      if [ "x${http_proxy}" != "x" -o "x${https_proxy}" != "x" ]; then
+        KANIKOCFG="${KANIKOCFG}, \"proxies\": { \"default\": { \"httpProxy\": \"${http_proxy}\", \"httpsProxy\": \"${https_proxy}\", \"noProxy\": \"${no_proxy}\"}}"
+        KANIKOPROXYBUILDARGS="--build-arg http_proxy=${http_proxy} --build-arg https_proxy=${https_proxy} --build-arg no_proxy=${no_proxy}"
+      fi
+      KANIKOCFG="${KANIKOCFG} }"
+      echo "${KANIKOCFG}" > /kaniko/.docker/config.json
+.init-kubectl:
+  before_script:
+    - mkdir -p /root/.kube
+    - cp ${KUBE_CONFIG} /root/.kube/config
+    - chmod o-r /root/.kube/config
+    - chmod g-r /root/.kube/config
