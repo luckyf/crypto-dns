@@ -129,11 +129,32 @@ Examples:
 
 Subdomains can be used like root domains. Just use your subdomain when adding it to the DNS instead of the `@` path.
 
+## Configuration
+
+You can pass a configuration object as the last parameter on each lookup-Function.
+
+```typescript
+const config = {
+  nameserver: 'https://8.8.8.8/resolve',
+  timeout: 1500,
+};
+
+const lookupSingleAddress = await lookupOne('thirdweb.de', 'ETH', config);
+```
+
+The following configurations are available:
+
+| Configuration | Type   | Default                     | Description                                                                                                |
+| ------------- | ------ | --------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `nameserver`  | string | `https://1.1.1.1/dns-query` | Server-URL for DoH-Resolution (Cloudflare: `https://1.1.1.1/dns-query`, Google: `https://8.8.8.8/resolve`) |
+| `timeout`     | number | `2000`                      | Timeout for DoH HTTP-Call                                                                                  |
+
 ## Tests
 
 You can validate all tests by running:
 
 ```bash
+yarn install
 yarn test
 ```
 
@@ -148,9 +169,3 @@ For Bug reports or feature requests, please [create an issue](https://github.com
 ## Support & Funding
 
 If you would like to support or fund the development of this project, feel free to [contact me via mail](mailto:hey@frischknecht.dev?subject=Support%20Crypto-DNS).
-
-## TODOs
-
-- Docs: Describe update cycle (CICD)
-- Docs: Describe lookup flow
-- Feature: Make DoH Lookup provider configurable
