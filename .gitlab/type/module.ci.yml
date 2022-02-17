@@ -26,8 +26,8 @@ variables:
 ########################################
 # Jobs
 ########################################
-dependencies-dev:
-  allow_failure: false
+#dependencies-dev:
+#  allow_failure: false
 #licenses:
 #  needs:
 #    - job: dependencies-dev
