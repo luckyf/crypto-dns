@@ -7,8 +7,9 @@ stages:
 ########################################
 # Configuration
 ########################################
-#variables:
-#  JOB_UPDATEVERSION_ENABLED: 'false'
+variables:
+  JOB_UPDATEVERSION_ENABLED: 'false'
+  NODE_BUILD_IMAGE_GIT: $NODE_BUILD_IMAGE_GIT
 
 ########################################
 # Jobs

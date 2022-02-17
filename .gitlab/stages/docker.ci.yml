@@ -7,8 +7,9 @@ stages:
 ########################################
 # Configuration
 ########################################
-#variables:
-#  JOB_DOCKERIZE_ENABLED: 'false'
+variables:
+  JOB_DOCKERIZE_ENABLED: 'false'
+  KANIKO_BUILD_IMAGE: $KANIKO_BUILD_IMAGE
 
 ########################################
 # Jobs
