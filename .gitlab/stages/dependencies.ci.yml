@@ -38,7 +38,7 @@ dependencies-prod:
   extends:
     - .init-npm
   script:
-    - yarn ci:install-prod
+    - 'yarn ci:install-prod'
 
 dependencies-dev:
   stage: dependencies
@@ -64,4 +64,4 @@ dependencies-dev:
   extends:
     - .init-npm
   script:
-    - yarn ci:install-dev
+    - 'yarn ci:install-dev'

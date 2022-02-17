@@ -2,7 +2,8 @@
 # Includes
 ########################################
 include:
-  - '/.gitlab/stages/*.ci.yml'
+  #- '/.gitlab/stages/*.ci.yml'
+  - '/.gitlab/stages/dependencies.ci.yml'
   - '/.gitlab/dependabot.ci.yml'
 
 ########################################
