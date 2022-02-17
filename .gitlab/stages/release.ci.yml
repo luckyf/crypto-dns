@@ -24,9 +24,11 @@ release-package:
       when: never
     - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_MESSAGE =~ /chore: Update version/'
       when: never
-    - when: on_success
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+      when: on_success
   extends:
     - .init-git
     - .init-npm
   script:
-    - yarn ci:publish
+    - 'echo "PUBLISH"'
+    #- yarn ci:publish

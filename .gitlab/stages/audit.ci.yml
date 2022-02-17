@@ -39,6 +39,9 @@ licenses:
       when: never
     - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_MESSAGE =~ /chore: Update version/'
       when: never
+    - if: '$CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH'
+      when: on_success
+      allow_failure: true
     - when: on_success
   extends:
     - .init-npm
@@ -69,6 +72,9 @@ vulnerabilities:
       when: never
     - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_MESSAGE =~ /chore: Update version/'
       when: never
+    - if: '$CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH'
+      when: on_success
+      allow_failure: true
     - when: on_success
   extends:
     - .init-npm
@@ -99,6 +105,9 @@ outdated:
       when: never
     - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_MESSAGE =~ /chore: Update version/'
       when: never
+    - if: '$CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH'
+      when: on_success
+      allow_failure: true
     - when: on_success
   extends:
     - .init-npm
