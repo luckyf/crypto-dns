@@ -9,8 +9,6 @@ export const lookup = async (
 ): Promise<CryptoDNSEntryI[]> => {
   const mergedConfig = { ...defaultConfig, ...config };
 
-  console.log(axios);
-
   const result: CryptoDNSEntryI[] = [];
   let dnsResponse: AxiosResponse;
 
