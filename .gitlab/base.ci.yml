@@ -3,10 +3,10 @@
 ########################################
 include:
   #- '/.gitlab/stages/*.ci.yml'
-  - '/.gitlab/stages/dependencies.ci.yml'
-  - '/.gitlab/stages/audit.ci.yml'
-  - '/.gitlab/stages/test.ci.yml'
-  - '/.gitlab/stages/build.ci.yml'
+  #- '/.gitlab/stages/dependencies.ci.yml'
+  #- '/.gitlab/stages/audit.ci.yml'
+  #- '/.gitlab/stages/test.ci.yml'
+  #- '/.gitlab/stages/build.ci.yml'
   - '/.gitlab/dependabot.ci.yml'
 
 ########################################
