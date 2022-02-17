@@ -7,8 +7,8 @@ stages:
 ########################################
 # Configuration
 ########################################
-#variables:
-#  JOB_TRIGGERDEPLOY_ENABLED: 'false'
+variables:
+  JOB_TRIGGERDEPLOY_ENABLED: 'false'
 
 ########################################
 # Jobs

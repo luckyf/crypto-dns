@@ -15,8 +15,7 @@ variables:
   JOB_LINT_ENABLED: 'true'
   JOB_TEST_ENABLED: 'true'
   JOB_BUILD_ENABLED: 'true'
-  JOB_RELEASE_ENABLED: 'true'
-  JOB_TRIGGERUPDATESUBMODULES_ENABLED: 'true'
+  #JOB_RELEASE_ENABLED: 'true'
 
 ########################################
 # Pre configurations
@@ -66,8 +65,3 @@ release-package:
     - lint
     - test
     - build
-trigger-update-submodule:
-  needs:
-    - job: release-package
-      optional: false
-  allow_failure: true

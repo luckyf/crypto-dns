@@ -7,10 +7,11 @@ stages:
 ########################################
 # Configuration
 ########################################
-#variables:
-#  JOB_LICENSES_ENABLED: 'false'
-#  JOB_VULNERABILITIES_ENABLED: 'false'
-#  JOB_OUTDATED_ENABLED: 'false'
+variables:
+  JOB_LICENSES_ENABLED: 'false'
+  JOB_VULNERABILITIES_ENABLED: 'false'
+  JOB_OUTDATED_ENABLED: 'false'
+  CICD_TEMPLATE_IMAGE: $CICD_TEMPLATE_IMAGE
 
 ########################################
 # Jobs
@@ -30,7 +31,7 @@ licenses:
     paths:
       - 'license-report.json'
     expire_in: 30 days
-    when: on_success
+    when: always
   rules:
     - if: '$JOB_LICENSES_ENABLED != "true"'
       when: never
@@ -60,7 +61,7 @@ vulnerabilities:
     paths:
       - 'vulnerabilities-report.json'
     expire_in: 30 days
-    when: on_success
+    when: on_failure
   rules:
     - if: '$JOB_VULNERABILITIES_ENABLED != "true"'
       when: never
@@ -90,7 +91,7 @@ outdated:
     paths:
       - 'outdated-report.json'
     expire_in: 30 days
-    when: on_success
+    when: on_failure
   rules:
     - if: '$JOB_OUTDATED_ENABLED != "true"'
       when: never

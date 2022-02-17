@@ -1,7 +1,4 @@
 import { lookup } from '../index';
-
-jest.requireActual('axios');
-
 describe('Test real DNS lookup', () => {
   test('Cloudflare DNS server', async () => {
     const result = await lookup('thirdweb.de', { nameserver: 'https://1.1.1.1/dns-query' });
