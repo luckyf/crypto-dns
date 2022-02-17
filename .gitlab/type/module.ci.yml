@@ -9,9 +9,9 @@ include:
 ########################################
 variables:
   JOB_DEPENDENCIES_DEV_ENABLED: 'true'
-  #JOB_LICENSES_ENABLED: 'true'
-  #JOB_VULNERABILITIES_ENABLED: 'true'
-  #JOB_OUTDATED_ENABLED: 'true'
+  JOB_LICENSES_ENABLED: 'true'
+  JOB_VULNERABILITIES_ENABLED: 'true'
+  JOB_OUTDATED_ENABLED: 'true'
   #JOB_LINT_ENABLED: 'true'
   #JOB_TEST_ENABLED: 'true'
   #JOB_BUILD_ENABLED: 'true'
