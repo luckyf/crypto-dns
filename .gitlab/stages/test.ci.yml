@@ -7,9 +7,10 @@ stages:
 ########################################
 # Configuration
 ########################################
-#variables:
-#  JOB_LINT_ENABLED: 'false'
-#  JOB_TEST_ENABLED: 'false'
+variables:
+  JOB_LINT_ENABLED: 'false'
+  JOB_TEST_ENABLED: 'false'
+  NODE_BUILD_IMAGE: $NODE_BUILD_IMAGE
 
 ########################################
 # Jobs

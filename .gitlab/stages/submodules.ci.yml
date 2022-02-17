@@ -7,9 +7,10 @@ stages:
 ########################################
 # Configuration
 ########################################
-#variables:
-#  JOB_UPDATESUBMODULES_ENABLED: 'false'
-#  JOB_TRIGGERUPDATESUBMODULES_ENABLED: 'false'
+variables:
+  JOB_UPDATESUBMODULES_ENABLED: 'false'
+  JOB_TRIGGERUPDATESUBMODULES_ENABLED: 'false'
+  NODE_BUILD_IMAGE_GIT: $NODE_BUILD_IMAGE_GIT
 
 ########################################
 # Jobs

@@ -7,10 +7,11 @@ stages:
 ########################################
 # Configuration
 ########################################
-#variables:
-#  JOB_LICENSES_ENABLED: 'false'
-#  JOB_VULNERABILITIES_ENABLED: 'false'
-#  JOB_OUTDATED_ENABLED: 'false'
+variables:
+  JOB_LICENSES_ENABLED: 'false'
+  JOB_VULNERABILITIES_ENABLED: 'false'
+  JOB_OUTDATED_ENABLED: 'false'
+  CICD_TEMPLATE_IMAGE: $CICD_TEMPLATE_IMAGE
 
 ########################################
 # Jobs

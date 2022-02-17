@@ -7,8 +7,9 @@ stages:
 ########################################
 # Configuration
 ########################################
-#variables:
-#  JOB_BUILD_ENABLED: 'false'
+variables:
+  JOB_BUILD_ENABLED: 'false'
+  NODE_BUILD_IMAGE: $NODE_BUILD_IMAGE
 
 ########################################
 # Jobs

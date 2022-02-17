@@ -8,15 +8,15 @@ include:
 # Configuration
 ########################################
 variables:
-  JOB_DEPENDENCIES_DEV_ENABLED: 'true'
-  JOB_LICENSES_ENABLED: 'true'
-  JOB_VULNERABILITIES_ENABLED: 'true'
-  JOB_OUTDATED_ENABLED: 'true'
-  JOB_LINT_ENABLED: 'true'
-  JOB_TEST_ENABLED: 'true'
-  JOB_BUILD_ENABLED: 'true'
-  JOB_RELEASE_ENABLED: 'true'
-  JOB_TRIGGERUPDATESUBMODULES_ENABLED: 'true'
+  #JOB_DEPENDENCIES_DEV_ENABLED: 'true'
+  #JOB_LICENSES_ENABLED: 'true'
+  #JOB_VULNERABILITIES_ENABLED: 'true'
+  #JOB_OUTDATED_ENABLED: 'true'
+  #JOB_LINT_ENABLED: 'true'
+  #JOB_TEST_ENABLED: 'true'
+  #JOB_BUILD_ENABLED: 'true'
+  #JOB_RELEASE_ENABLED: 'true'
+  #JOB_TRIGGERUPDATESUBMODULES_ENABLED: 'true'
 
 ########################################
 # Pre configurations
@@ -28,46 +28,46 @@ variables:
 ########################################
 dependencies-dev:
   allow_failure: false
-#licenses:
-#  needs:
-#    - job: dependencies-dev
-#      optional: true
-#  allow_failure: false
-#vulnerabilities:
-#  needs:
-#    - job: dependencies-dev
-#      optional: true
-#  allow_failure: false
-#outdated:
-#  needs:
-#    - job: dependencies-dev
-#      optional: true
-#  allow_failure: false
-#lint:
-#  needs:
-#    - job: dependencies-dev
-#      optional: true
-#  allow_failure: false
-#test:
-#  needs:
-#    - job: dependencies-dev
-#      optional: true
-#  allow_failure: false
-#build:
-#  needs:
-#    - job: dependencies-dev
-#      optional: true
-#  allow_failure: false
-#release-package:
-#  needs:
-#    - licenses
-#    - outdated
-#    - vulnerabilities
-#    - lint
-#    - test
-#    - build
-#trigger-update-submodule:
-#  needs:
-#    - job: release-package
-#      optional: false
-#  allow_failure: true
+licenses:
+  needs:
+    - job: dependencies-dev
+      optional: true
+  allow_failure: false
+vulnerabilities:
+  needs:
+    - job: dependencies-dev
+      optional: true
+  allow_failure: false
+outdated:
+  needs:
+    - job: dependencies-dev
+      optional: true
+  allow_failure: false
+lint:
+  needs:
+    - job: dependencies-dev
+      optional: true
+  allow_failure: false
+test:
+  needs:
+    - job: dependencies-dev
+      optional: true
+  allow_failure: false
+build:
+  needs:
+    - job: dependencies-dev
+      optional: true
+  allow_failure: false
+release-package:
+  needs:
+    - licenses
+    - outdated
+    - vulnerabilities
+    - lint
+    - test
+    - build
+trigger-update-submodule:
+  needs:
+    - job: release-package
+      optional: false
+  allow_failure: true
