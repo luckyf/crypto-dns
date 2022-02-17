@@ -52,7 +52,7 @@ test:
     paths:
       - 'coverage'
     expire_in: 30 days
-    when: on_success
+    when: always
   rules:
     - if: '$JOB_TEST_ENABLED != "true"'
       when: never
