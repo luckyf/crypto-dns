@@ -114,7 +114,7 @@ crypto:<formatVersion>:<priority> <currency>:<walletAddress>
 Regex:
 
 ```regex
-/^"+crypto:(?<formatVersion>\d):(?<priority>\d{1,3})\s(?<currency>\w+):(?<walletAddress>.*)"+/
+/^crypto:(?<formatVersion>\d):(?<priority>\d{1,3})\s(?<currency>\w+):(?<walletAddress>.*)/
 ```
 
 Examples:
