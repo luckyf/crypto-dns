@@ -34,8 +34,13 @@ export const lookup = async (
     if (entry.type !== 16) {
       return;
     }
+
+    // Remove " if entry.data is wrapped like "crypto:1:10 matic:0xXYZ"
+    if (entry.data.startsWith('"') && entry.data.endsWith('"')) {
+      entry.data = entry.data.slice(1, -1);
+    }
     const dnsEntry = entry.data.match(
-      /^"+crypto:(?<formatVersion>\d):(?<priority>\d{1,3})\s(?<currency>\w+):(?<walletAddress>.*)"+/,
+      /^crypto:(?<formatVersion>\d):(?<priority>\d{1,3})\s(?<currency>\w+):(?<walletAddress>.*)/,
     );
     if (!dnsEntry) {
       return;
