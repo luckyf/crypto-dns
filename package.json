@@ -51,6 +51,7 @@
     "ci:vulnerabilities-fix": "yarn audit --fix",
     "ci:vulnerabilities-report": "yarn audit --json > vulnerabilities-report.json",
     "ci:publish": "yarn publish",
+    "example": "node examples/index.js",
     "upgradelatest": "yarn upgrade-interactive --latest",
     "dev": "tsc-watch --preserveWatchOutput --onSuccess 'node ./dist/index.js'",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
