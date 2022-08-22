@@ -65,7 +65,7 @@
   "name": "crypto-dns",
   "repository": {
     "type": "git",
-    "url": "https://github.com/LuckyF/crypto-dns.git"
+    "url": "https://git.frischknecht.dev/crypto-dns/packages/crypto-dns.git"
   },
   "scripts": {
     "audit:fix": "yarn-audit-fix",
