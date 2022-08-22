@@ -1,3 +1,14 @@
+## [1.2.0](https://git.frischknecht.dev/crypto-dns/packages/crypto-dns/compare/v1.1.0...v1.2.0) (2022-08-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* Migrate to new repository and CICD Pipeline
+
+### Features
+
+* Migrate to new repository and CICD Pipeline ([86d5257](https://git.frischknecht.dev/crypto-dns/packages/crypto-dns/commit/86d52574a9cf662731cd8a76bd18fda3134921f0))
+
 ## [1.1.0](https://git.frischknecht.dev/crypto-dns/packages/crypto-dns/compare/v1.0.0...v1.1.0) (2022-08-22)
 
 
