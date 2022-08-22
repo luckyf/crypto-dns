@@ -10,6 +10,6 @@
     "upgradelatest": "yarn upgrade-interactive --latest"
   },
   "dependencies": {
-    "crypto-dns": "^1.1.2"
+    "crypto-dns": "1.2.0"
   }
 }
