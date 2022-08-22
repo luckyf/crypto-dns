@@ -1,92 +1,171 @@
-# Crypto-DNS
+# Crypto DNS
 
+This packages translates domain names into crypto wallet addresses, using standard TXT records set by the DNS.
 
+## Motivation
 
-## Getting started
+Crypto currency wallet addresses aren't readable or rememberable.
+Just like in the "normal" DNS system, where we translate domain names to IP addresses, a system which translates domain names to wallet addresses would be useful.
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+There are several providers of such translation services like ENS which are using smart contracts for the translation, but using those will result in gas fees, which are currently really high.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
-
-## Add your files
-
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
-
-```
-cd existing_repo
-git remote add origin https://git.frischknecht.dev/crypto-dns/packages/crypto-dns.git
-git branch -M main
-git push -uf origin main
-```
-
-## Integrate with your tools
-
-- [ ] [Set up project integrations](https://git.frischknecht.dev/crypto-dns/packages/crypto-dns/-/settings/integrations)
-
-## Collaborate with your team
-
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
-
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+Fortunately we already have DNS as a global translation system in place, which we can use. By adding TXT records we are able to associate wallet addresses for one or multiple crypto currencies to our domain or subdomain.
+This package is heavily inspired by [this blog post of Mattias Geniar](https://ma.ttias.be/proposal-cryptocurrency-addresses-dns/).
 
 ## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+Using npm:
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+```bash
+npm install crypto-dns
+```
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+Using yarn:
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+```bash
+yarn add crypto-dns
+```
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+## Example
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+Lookup single address for a currency with the highest priority:
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+```typescript
+import { lookupOne } from 'crypto-dns';
+
+const lookupSingleAddress = await lookupOne('thirdweb.de', 'ETH');
+// -> string
+// 0xD982065960f77282eDB555b43B175Cf3A7dAC72d
+```
+
+You can also lookup all addresses for a currency (sorted by priority):
+
+```typescript
+import { lookupMany } from 'crypto-dns';
+
+const lookupMultipleAddresses = await lookupMany('thirdweb.de', 'ETH');
+// -> array
+//[
+//  {
+//    version: 1,
+//    priority: 10,
+//    currency: 'ETH',
+//    address: '0xB9Af69a9850a98d9Fb66Ce210E88021Ad583961a',
+//  },
+//  {
+//    version: 1,
+//    priority: 10,
+//    currency: 'ETH',
+//    address: '0xD982065960f77282eDB555b43B175Cf3A7dAC72d',
+//  },
+//  {
+//    version: 1,
+//    priority: 20,
+//    currency: 'ETH',
+//    address: '0xccaa72d80EeB1A2Ac91B6Fdebff995D55ea9368a',
+//  },
+//];
+```
+
+To receive addresses for every available currency you can use the `lookup` method:
+
+```typescript
+import { lookup } from 'crypto-dns';
+
+const lookupResultForAllCurrencies = await lookup('thirdweb.de');
+// -> array
+//[
+//  {
+//    version: 1,
+//    priority: 10,
+//    currency: 'ETH',
+//    address: '0xB9Af69a9850a98d9Fb66Ce210E88021Ad583961a',
+//  },
+//  ...
+//  {
+//    version: 1,
+//    priority: 10,
+//    currency: 'MATIC',
+//    address: '0xD982065960f77282eDB555b43B175Cf3A7dAC72d',
+//  },
+//];
+```
+
+## Features
+
+- Use your domain as alias for your crypto wallet addresses
+- Available for every crypto currency
+- Works with your main domain and all subdomains
+- Use priority to weight wallet addresses
+
+### DNS format
+
+```text
+crypto:<formatVersion>:<priority> <currency>:<walletAddress>
+```
+
+| Keyword       | Description                                                                                                                             |
+| ------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| formatVersion | Version of the format of the DNS string Currently only `1` is available.                                                                |
+| priority      | Specify priority of the entry (3 digits). The lower, the higher priority.                                                               |
+| currency      | Symbol of the crypto currency (case-insensitive). Use [CoinMarketCap](https://coinmarketcap.com/de/all/views/all/) to find all symbols. |
+| walletAddress | String with your wallet address. The format depends on the currency.                                                                    |
+
+Regex:
+
+```regex
+/^crypto:(?<formatVersion>\d):(?<priority>\d{1,3})\s(?<currency>\w+):(?<walletAddress>.*)/
+```
+
+Examples:
+
+```text
+`crypto:v1:10 eth:0xD982065960f77282eDB555b43B175Cf3A7dAC72d`
+`crypto:v1:10 matic:0xD982065960f77282eDB555b43B175Cf3A7dAC72d`
+`crypto:v1:10 btc:XXXX`
+```
+
+### How to use subdomains
+
+Subdomains can be used like root domains. Just use your subdomain when adding it to the DNS instead of the `@` path.
+
+## Configuration
+
+You can pass a configuration object as the last parameter on each lookup-Function.
+
+```typescript
+const config = {
+  nameserver: 'https://8.8.8.8/resolve',
+  timeout: 1500,
+};
+
+const lookupSingleAddress = await lookupOne('thirdweb.de', 'ETH', config);
+```
+
+The following configurations are available:
+
+| Configuration | Type   | Default                     | Description                                                                                                |
+| ------------- | ------ | --------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `nameserver`  | string | `https://1.1.1.1/dns-query` | Server-URL for DoH-Resolution (Cloudflare: `https://1.1.1.1/dns-query`, Google: `https://8.8.8.8/resolve`) |
+| `timeout`     | number | `2000`                      | Timeout for DoH HTTP-Call                                                                                  |
+
+## Tests
+
+You can validate all tests by running:
+
+```bash
+yarn install
+yarn test
+```
 
 ## License
-For open source projects, say how it is licensed.
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+This library is licensed under the [**MIT License**](https://github.com/LuckyF/crypto-dns/blob/main/LICENSE.md).
+
+## Bugs & Feature Requests
+
+For Bug reports or feature requests, please [create an issue](https://github.com/LuckyF/crypto-dns/issues) in the crypto-dns repository.
+
+## Support & Funding
+
+If you would like to support or fund the development of this project, feel free to [contact me via mail](mailto:hey@frischknecht.dev?subject=Support%20Crypto-DNS).

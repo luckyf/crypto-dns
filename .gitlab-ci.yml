@@ -1,0 +1,4 @@
+include:
+  - project: 'crypto-dns/project/config/cicd'
+    ref: main
+    file: '/.gitlab/type/package.ci.yml'

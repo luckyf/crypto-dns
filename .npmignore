@@ -1,0 +1,38 @@
+#tests
+test
+tests
+coverage
+*.spec.*
+junit.xml
+
+#build tools
+.travis.yml
+.jenkins.yml
+.codeclimate.yml
+
+#linters
+.jscsrc
+.jshintrc
+.eslintignore
+.eslintrc*
+
+#editor settings
+.idea
+.editorconfig
+
+# Config files
+renovate.json
+*.config.js
+*.config.ts
+*-report.json
+.licensee.json
+.prettierrc.js
+.prettierrc.ts
+.releaserc.js
+.releaserc.ts
+.gitlab
+.gitlab-ci.yml
+.gitattributes
+docs
+src
+examples
