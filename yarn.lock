@@ -1025,9 +1025,9 @@
     universal-user-agent "^6.0.0"
 
 "@octokit/openapi-types@^13.4.0":
-  version "13.4.0"
-  resolved "https://registry.yarnpkg.com/@octokit/openapi-types/-/openapi-types-13.4.0.tgz#06fe8fda93bf21bdd397fe7ef8805249efda6c06"
-  integrity sha512-2mVzW0X1+HDO3jF80/+QFZNzJiTefELKbhMu6yaBYbp/1gSMkVDm4rT472gJljTokWUlXaaE63m7WrWENhMDLw==
+  version "13.5.0"
+  resolved "https://registry.yarnpkg.com/@octokit/openapi-types/-/openapi-types-13.5.0.tgz#8b3000783869a76b65a633159df8d7ed73ba370d"
+  integrity sha512-e9uYcMLpU5nMDA4k4PufLsJV9Wwc4QuKxRD7xNPW3vveuA3j0Nb6zZYG9IgQpEgYPtIjQwrJK3Z2rKWJ9SfzKg==
 
 "@octokit/plugin-paginate-rest@^4.0.0":
   version "4.1.0"
@@ -1042,11 +1042,11 @@
   integrity sha512-mLUsMkgP7K/cnFEw07kWqXGF5LKrOkD+lhCrKvPHXWDywAwuDUeDwWBpc69XK3pNX0uKiVt8g5z96PJ6z9xCFA==
 
 "@octokit/plugin-rest-endpoint-methods@^6.0.0":
-  version "6.3.0"
-  resolved "https://registry.yarnpkg.com/@octokit/plugin-rest-endpoint-methods/-/plugin-rest-endpoint-methods-6.3.0.tgz#81549334ce020169b84bd4a7fa2577e9d725d829"
-  integrity sha512-qEu2wn6E7hqluZwIEUnDxWROvKjov3zMIAi4H4d7cmKWNMeBprEXZzJe8pE5eStUYC1ysGhD0B7L6IeG1Rfb+g==
+  version "6.3.1"
+  resolved "https://registry.yarnpkg.com/@octokit/plugin-rest-endpoint-methods/-/plugin-rest-endpoint-methods-6.3.1.tgz#6f2cf47740302ba3868cdb88605d90faa93f3469"
+  integrity sha512-rlEvu+Yn2TykXcAEfP7b5dXlsyD5A5QCU3nuMY7cXFtDKPeRyL739xhDuEwvDV9is8ea1kFuDKbmA/DNGPkCyg==
   dependencies:
-    "@octokit/types" "^7.0.0"
+    "@octokit/types" "^7.1.1"
     deprecation "^2.3.1"
 
 "@octokit/request-error@^3.0.0":
@@ -1230,9 +1230,9 @@
     read-pkg-up "^7.0.0"
 
 "@sinclair/typebox@^0.24.1":
-  version "0.24.30"
-  resolved "https://registry.yarnpkg.com/@sinclair/typebox/-/typebox-0.24.30.tgz#70d94661a065373b7330cc2dce79424bc8e957a1"
-  integrity sha512-YTlUf5iAfDZEVmI4SWOBGcxpufY2XQhWqSwyLeR2Qg1pkjlM6+Pvc+9MA/+zUaiEFuuX3F3KdhqS5bcasgLc5A==
+  version "0.24.31"
+  resolved "https://registry.yarnpkg.com/@sinclair/typebox/-/typebox-0.24.31.tgz#3f3752bc830a9daa4a0185573f0bf870089c3222"
+  integrity sha512-uWZaAsh9WFhcY1rWLLcMU/omiIIAQ/PmgqplaF6UWY6ULPH0ZO8hupJRAydzlTQZJIK3Voz8o8dYlEx+Cm6BAA==
 
 "@sindresorhus/is@^4.0.0":
   version "4.6.0"
@@ -2578,9 +2578,9 @@ each-parallel-async@^1.0.0:
   integrity sha512-P/9kLQiQj0vZNzphvKKTgRgMnlqs5cJsxeAiuog1jrUnwv0Z3hVUwJDQiP7MnLb2I9S15nR9SRUceFT9IxtqRg==
 
 electron-to-chromium@^1.4.202:
-  version "1.4.234"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.234.tgz#ff8fb29c2edac74ef3935ca03a2ecbe62ede400b"
-  integrity sha512-VqlJ4Ihd9F7eQIfwEtf7C0eZZDl6bQtpez8vx8VHN9iCZEzePZjr7n9OGFHSav4WN9zfLa2CFLowj0siBoc0hQ==
+  version "1.4.236"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.236.tgz#48888ded4b80d4dee87501b1955699156fba903c"
+  integrity sha512-41wPRcb9OIpB0RMLnIIDbfbJ5IXwuQ2qAr0jCTSpv5s7M61MazcBGS5kovW5E28SGxum/KR3fm2imswjdlTWmw==
 
 emittery@^0.10.2:
   version "0.10.2"
@@ -4677,9 +4677,9 @@ marked-terminal@^5.0.0:
     supports-hyperlinks "^2.2.0"
 
 marked@^4.0.10:
-  version "4.0.19"
-  resolved "https://registry.yarnpkg.com/marked/-/marked-4.0.19.tgz#d36198d1ac1255525153c351c68c75bc1d7aee46"
-  integrity sha512-rgQF/OxOiLcvgUAj1Q1tAf4Bgxn5h5JZTp04Fx4XUkVhs7B+7YA9JEWJhJpoO8eJt8MkZMwqLCNeNqj1bCREZQ==
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-4.1.0.tgz#3fc6e7485f21c1ca5d6ec4a39de820e146954796"
+  integrity sha512-+Z6KDjSPa6/723PQYyc1axYZpYYpDnECDaU6hkaf5gqBieBkMKYReL5hteF2QizhlMbgbo8umXl/clZ67+GlsA==
 
 meow@^8.0.0:
   version "8.1.2"
