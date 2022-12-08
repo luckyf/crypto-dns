@@ -1,3 +1,5 @@
+## [1.2.3-rc.2](https://git.frischknecht.dev/crypto-dns/packages/crypto-dns/compare/v1.2.3-rc.1...v1.2.3-rc.2) (2022-12-08)
+
 ## [1.2.3-rc.1](https://git.frischknecht.dev/crypto-dns/packages/crypto-dns/compare/v1.2.2...v1.2.3-rc.1) (2022-10-18)
 
 ## [1.2.2](https://git.frischknecht.dev/crypto-dns/packages/crypto-dns/compare/v1.2.1...v1.2.2) (2022-10-08)

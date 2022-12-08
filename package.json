@@ -95,5 +95,5 @@
     "upgrade-latest": "yarn upgrade-interactive --latest"
   },
   "types": "dist/index.d.ts",
-  "version": "1.2.3-rc.1"
+  "version": "1.2.3-rc.2"
 }
