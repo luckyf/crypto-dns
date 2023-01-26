@@ -5,7 +5,7 @@
   },
   "contributors": [],
   "dependencies": {
-    "axios": "1.2.2"
+    "axios": "1.2.5"
   },
   "description": "This packages translates domain names into crypto wallet addresses, using standard TXT records set by the DNS.",
   "displayName": "Crypto-DNS",
