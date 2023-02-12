@@ -1216,10 +1216,10 @@
     "@pnpm/network.ca-file" "^1.0.1"
     config-chain "^1.1.11"
 
-"@saithodev/semantic-release-backmerge@2.1.3":
-  version "2.1.3"
-  resolved "https://registry.yarnpkg.com/@saithodev/semantic-release-backmerge/-/semantic-release-backmerge-2.1.3.tgz#b5bcdca5b56297f58044e832eb24e7070ee6f4e0"
-  integrity sha512-h6QOzSU6xgZBceffJxGa9vUhH63kLixJfSMHDeKiVqRtBS/pC3tuXEVYXN2hkPylEBrieOkQwNCsTNWFkOT0Og==
+"@saithodev/semantic-release-backmerge@2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@saithodev/semantic-release-backmerge/-/semantic-release-backmerge-2.2.0.tgz#952cd401a47680edb34a76dbc00cb640701ed74d"
+  integrity sha512-ZPqFNtF84Y9GhoiWZnd59+Sg/PS7/KYfpwGC76xnZiZqieEhF5lcKkkYbee/riDPTxNhz2PXK20qs9duYDh+ig==
   dependencies:
     "@semantic-release/error" "^2.2.0 || ^3.0.0"
     aggregate-error "^3.1.0"
