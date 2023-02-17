@@ -10,8 +10,8 @@
   "description": "This packages translates domain names into crypto wallet addresses, using standard TXT records set by the DNS.",
   "displayName": "Crypto-DNS",
   "devDependencies": {
-    "@commitlint/cli": "17.4.3",
-    "@commitlint/config-conventional": "17.4.3",
+    "@commitlint/cli": "17.4.4",
+    "@commitlint/config-conventional": "17.4.4",
     "@jest/types": "29.4.3",
     "@saithodev/semantic-release-backmerge": "2.2.0",
     "@semantic-release/changelog": "6.0.2",
