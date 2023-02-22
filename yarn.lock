@@ -842,9 +842,9 @@
     walk-up-path "^1.0.0"
 
 "@npmcli/arborist@^6.1.2":
-  version "6.2.2"
-  resolved "https://registry.yarnpkg.com/@npmcli/arborist/-/arborist-6.2.2.tgz#3ea668e7d368376a8477bd7bc3389bf634603b5b"
-  integrity sha512-cjK9CuA1cEovr4E1ljdgYU1UBdKJb4KvvULAEYOM1/qU0Que2X4DKyjIDBEy8MSWRY6PyaQ8oLGhwYIh8gUEEA==
+  version "6.2.3"
+  resolved "https://registry.yarnpkg.com/@npmcli/arborist/-/arborist-6.2.3.tgz#31f8aed2588341864d3811151d929c01308f8e71"
+  integrity sha512-lpGOC2ilSJXcc2zfW9QtukcCTcMbl3fVI0z4wvFB2AFIl0C+Q6Wv7ccrpdrQa8rvJ1ZVuc6qkX7HVTyKlzGqKA==
   dependencies:
     "@isaacs/string-locale-compare" "^1.1.0"
     "@npmcli/fs" "^3.1.0"
@@ -2759,9 +2759,9 @@ each-parallel-async@^1.0.0:
   integrity sha512-P/9kLQiQj0vZNzphvKKTgRgMnlqs5cJsxeAiuog1jrUnwv0Z3hVUwJDQiP7MnLb2I9S15nR9SRUceFT9IxtqRg==
 
 electron-to-chromium@^1.4.284:
-  version "1.4.305"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.305.tgz#e4dfe3e06ab783f33171f9bde9e8ed092510fcd0"
-  integrity sha512-WETy6tG0CT5gm1O+xCbyapWNsCcmIvrn4NHViIGYo2AT8FV2qUCXdaB+WqYxSv/vS5mFqhBYnfZAAkVArjBmUg==
+  version "1.4.307"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.307.tgz#0301d9a87d95f47591550124a985a3eea6074a6f"
+  integrity sha512-n54V0t4LyHM2oQiAOmD3qC2peB+orUktXORSnWxqtv3uEMSoUcsq+hoMpU08VEJCNbfgBtzy169P0TcrLuq53A==
 
 emittery@^0.13.1:
   version "0.13.1"
@@ -4939,9 +4939,9 @@ minipass@^3.0.0, minipass@^3.1.1, minipass@^3.1.6:
     yallist "^4.0.0"
 
 minipass@^4.0.0:
-  version "4.0.3"
-  resolved "https://registry.yarnpkg.com/minipass/-/minipass-4.0.3.tgz#00bfbaf1e16e35e804f4aa31a7c1f6b8d9f0ee72"
-  integrity sha512-OW2r4sQ0sI+z5ckEt5c1Tri4xTgZwYDxpE54eqWlQloQRoWtXjqt9udJ5Z4dSv7wK+nfFI7FRXyCpBSft+gpFw==
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/minipass/-/minipass-4.2.0.tgz#4bf124d8c87c14e99846f9a27c3219d956998c0e"
+  integrity sha512-ExlilAIS7zJ2EWUMaVXi14H+FnZ18kr17kFkGemMqBx6jW0m8P6XfqwYVPEG53ENlgsED+alVP9ZxC3JzkK23Q==
 
 minizlib@^2.1.1, minizlib@^2.1.2:
   version "2.1.2"
